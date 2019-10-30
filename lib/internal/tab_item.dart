@@ -18,7 +18,7 @@ class TabItem extends StatelessWidget {
         @required this.callbackFunction,
         @required this.textColor,
         @required this.iconColor,
-      this.nbNotifications});
+        @required this.nbNotifications});
 
   final UniqueKey uniqueKey;
   final String title;
@@ -27,7 +27,7 @@ class TabItem extends StatelessWidget {
   final Function(UniqueKey uniqueKey) callbackFunction;
   final Color textColor;
   final Color iconColor;
-  final int nbNotifications;
+  int nbNotifications;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
@@ -76,7 +76,7 @@ class TabItem extends StatelessWidget {
   }
 
   dynamic _formatBadgeButton(){
-    if(this.nbNotifications != null || (this.nbNotifications != null && this.nbNotifications > 0)) {
+    if(this.nbNotifications > 0) {
       return Badge(badgeContent: Text(
           this.nbNotifications != null ? this.nbNotifications.toString() : ""),
           child: IconButton(
@@ -89,6 +89,7 @@ class TabItem extends StatelessWidget {
               color: iconColor,
             ),
             onPressed: () {
+              this.nbNotifications = 0;
               callbackFunction(uniqueKey);
             },)
       );

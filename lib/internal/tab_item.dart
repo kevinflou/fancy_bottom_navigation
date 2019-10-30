@@ -66,24 +66,45 @@ class TabItem extends StatelessWidget {
               child: AnimatedOpacity(
                 duration: Duration(milliseconds: ANIM_DURATION),
                 opacity: (selected) ? ALPHA_OFF : ALPHA_ON,
-                child: Badge(badgeContent: Text(this.nbNotifications != null ? this.nbNotifications.toString() : ""), child:IconButton(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  padding: EdgeInsets.all(0),
-                  alignment: Alignment(0, 0),
-                  icon: Icon(
-                    iconData,
-                    color: iconColor,
-                  ),
-                  onPressed: () {
-                    callbackFunction(uniqueKey);
-                  },)
-                ),
+                child: _formatBadgeButton()
               ),
             ),
           )
         ],
       ),
     );
+  }
+
+  dynamic _formatBadgeButton(){
+    if(this.nbNotifications != null || (this.nbNotifications != null && this.nbNotifications > 0)) {
+      return Badge(badgeContent: Text(
+          this.nbNotifications != null ? this.nbNotifications.toString() : ""),
+          child: IconButton(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            padding: EdgeInsets.all(0),
+            alignment: Alignment(0, 0),
+            icon: Icon(
+              iconData,
+              color: iconColor,
+            ),
+            onPressed: () {
+              callbackFunction(uniqueKey);
+            },)
+      );
+    }else{
+      return  IconButton(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            padding: EdgeInsets.all(0),
+            alignment: Alignment(0, 0),
+            icon: Icon(
+              iconData,
+              color: iconColor,
+            ),
+            onPressed: () {
+              callbackFunction(uniqueKey);
+            },);
+    }
   }
 }

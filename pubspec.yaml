@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   vector_math: ^2.0.8
+  badges: ^1.1.0
 
 dev_dependencies:
   flutter_test:

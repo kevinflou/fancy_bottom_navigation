@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 const double ICON_OFF = -3;
@@ -16,7 +17,8 @@ class TabItem extends StatelessWidget {
         @required this.title,
         @required this.callbackFunction,
         @required this.textColor,
-        @required this.iconColor});
+        @required this.iconColor,
+      this.nbNotifications});
 
   final UniqueKey uniqueKey;
   final String title;
@@ -25,6 +27,7 @@ class TabItem extends StatelessWidget {
   final Function(UniqueKey uniqueKey) callbackFunction;
   final Color textColor;
   final Color iconColor;
+  final int nbNotifications;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
@@ -63,7 +66,7 @@ class TabItem extends StatelessWidget {
               child: AnimatedOpacity(
                 duration: Duration(milliseconds: ANIM_DURATION),
                 opacity: (selected) ? ALPHA_OFF : ALPHA_ON,
-                child: IconButton(
+                child: Badge(badgeContent: Text(this.nbNotifications.toString()), child:IconButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   padding: EdgeInsets.all(0),
@@ -74,7 +77,7 @@ class TabItem extends StatelessWidget {
                   ),
                   onPressed: () {
                     callbackFunction(uniqueKey);
-                  },
+                  },)
                 ),
               ),
             ),

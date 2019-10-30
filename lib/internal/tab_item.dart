@@ -101,6 +101,9 @@ class _TabItemState extends State<TabItem> {
               //});
 
               widget.callbackFunction(widget.uniqueKey);
+              setState(() => {
+
+              });
             },)
       );
     }else{

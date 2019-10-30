@@ -66,7 +66,7 @@ class TabItem extends StatelessWidget {
               child: AnimatedOpacity(
                 duration: Duration(milliseconds: ANIM_DURATION),
                 opacity: (selected) ? ALPHA_OFF : ALPHA_ON,
-                child: Badge(badgeContent: Text(this.nbNotifications.toString()), child:IconButton(
+                child: Badge(badgeContent: Text(this.nbNotifications != null ? this.nbNotifications.toString() : ""), child:IconButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   padding: EdgeInsets.all(0),

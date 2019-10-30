@@ -88,6 +88,7 @@ class _TabItemState extends State<TabItem> {
   }
 
   dynamic _formatBadgeButton(){
+    print("Coucou, notifs à la base : " + widget.nbNotifications.toString())
     if(widget.nbNotifications > 0) {
       return Badge(badgeContent: Text(
           widget.nbNotifications != null ? widget.nbNotifications.toString() : ""),
@@ -114,20 +115,20 @@ class _TabItemState extends State<TabItem> {
       );
     }else{
       return  IconButton(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            padding: EdgeInsets.all(0),
-            alignment: Alignment(0, 0),
-            icon: Icon(
-              widget.iconData,
-              color: widget.iconColor,
-            ),
-            onPressed: () {
-              setState(() => {
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        padding: EdgeInsets.all(0),
+        alignment: Alignment(0, 0),
+        icon: Icon(
+          widget.iconData,
+          color: widget.iconColor,
+        ),
+        onPressed: () {
+          setState(() => {
 
-              });
-              widget.callbackFunction(widget.uniqueKey);
-            },);
+          });
+          widget.callbackFunction(widget.uniqueKey);
+        },);
     }
   }
 }

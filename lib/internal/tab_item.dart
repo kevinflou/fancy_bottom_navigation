@@ -107,7 +107,7 @@ class _TabItemState extends State<TabItem> {
 
               widget.callbackFunction(widget.uniqueKey);
               setState(() => {
-                print("Coucou, notifs : " + widget.nbNotifications.toString());
+                print("Coucou, notifs : " + widget.nbNotifications.toString())
               });
             },)
       );

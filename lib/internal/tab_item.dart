@@ -88,7 +88,7 @@ class _TabItemState extends State<TabItem> {
   }
 
   dynamic _formatBadgeButton(){
-    print("Coucou, notifs à la base : " + widget.nbNotifications.toString())
+    print("Coucou, notifs à la base : " + widget.nbNotifications.toString());
     if(widget.nbNotifications > 0) {
       return Badge(badgeContent: Text(
           widget.nbNotifications != null ? widget.nbNotifications.toString() : ""),

@@ -9,7 +9,17 @@ const double ALPHA_OFF = 0;
 const double ALPHA_ON = 1;
 const int ANIM_DURATION = 300;
 
-class TabItem extends StatefulWidget {
+class TabItem extends StatelessWidget {
+  TabItem(
+      {@required this.uniqueKey,
+        @required this.selected,
+        @required this.iconData,
+        @required this.title,
+        @required this.callbackFunction,
+        @required this.textColor,
+        @required this.iconColor,
+        @required this.nbNotifications});
+
   final UniqueKey uniqueKey;
   final String title;
   final IconData iconData;
@@ -19,31 +29,9 @@ class TabItem extends StatefulWidget {
   final Color iconColor;
   int nbNotifications;
 
-  TabItem({@required this.uniqueKey,
-    @required this.selected,
-    @required this.iconData,
-    @required this.title,
-    @required this.callbackFunction,
-    @required this.textColor,
-    @required this.iconColor,
-    @required this.nbNotifications}) : super(key: uniqueKey);
-
-  @override
-  _TabItemState createState() => _TabItemState();
-}
-
-class _TabItemState extends State<TabItem> {
-
-
-
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
   final double iconAlpha = ALPHA_ON;
-
-  @override
-  void initState(){
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,15 +44,15 @@ class _TabItemState extends State<TabItem> {
             width: double.infinity,
             child: AnimatedAlign(
                 duration: Duration(milliseconds: ANIM_DURATION),
-                alignment: Alignment(0, (widget.selected) ? TEXT_ON : TEXT_OFF),
+                alignment: Alignment(0, (selected) ? TEXT_ON : TEXT_OFF),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.title,
+                    title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                        fontWeight: FontWeight.w600, color: widget.textColor),
+                        fontWeight: FontWeight.w600, color: textColor),
                   ),
                 )),
           ),
@@ -74,11 +62,11 @@ class _TabItemState extends State<TabItem> {
             child: AnimatedAlign(
               duration: Duration(milliseconds: ANIM_DURATION),
               curve: Curves.easeIn,
-              alignment: Alignment(0, (widget.selected) ? ICON_OFF : ICON_ON),
+              alignment: Alignment(0, (selected) ? ICON_OFF : ICON_ON),
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: ANIM_DURATION),
-                opacity: (widget.selected) ? ALPHA_OFF : ALPHA_ON,
-                child: _formatBadgeButton()
+                  duration: Duration(milliseconds: ANIM_DURATION),
+                  opacity: (selected) ? ALPHA_OFF : ALPHA_ON,
+                  child: _formatBadgeButton()
               ),
             ),
           )
@@ -88,29 +76,22 @@ class _TabItemState extends State<TabItem> {
   }
 
   dynamic _formatBadgeButton(){
-    print("Coucou, notifs à la base : " + widget.nbNotifications.toString());
-    if(widget.nbNotifications > 0) {
+    print("NOTIFICATIONS : " + this.nbNotifications.toString());
+    if(this.nbNotifications > 0) {
       return Badge(badgeContent: Text(
-          widget.nbNotifications != null ? widget.nbNotifications.toString() : ""),
+          this.nbNotifications != null ? this.nbNotifications.toString() : ""),
           child: IconButton(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             padding: EdgeInsets.all(0),
             alignment: Alignment(0, 0),
             icon: Icon(
-              widget.iconData,
-              color: widget.iconColor,
+              iconData,
+              color: iconColor,
             ),
             onPressed: () {
-              //setState(() {
-
-              //});
-
-              widget.callbackFunction(widget.uniqueKey);
-              setState(() => {
-                widget.nbNotifications = 0,
-                print("Coucou, notifs : " + widget.nbNotifications.toString())
-              });
+              this.nbNotifications = 0;
+              callbackFunction(uniqueKey);
             },)
       );
     }else{
@@ -120,14 +101,11 @@ class _TabItemState extends State<TabItem> {
         padding: EdgeInsets.all(0),
         alignment: Alignment(0, 0),
         icon: Icon(
-          widget.iconData,
-          color: widget.iconColor,
+          iconData,
+          color: iconColor,
         ),
         onPressed: () {
-          setState(() => {
-
-          });
-          widget.callbackFunction(widget.uniqueKey);
+          callbackFunction(uniqueKey);
         },);
     }
   }

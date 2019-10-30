@@ -26,9 +26,34 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentPage = 0;
 
   GlobalKey bottomNavigationKey = GlobalKey();
+  List<TabData> tabs = new List();
+
+  @override
+  void initState(){
+    super.initState();
+    tabs = [
+      TabData(
+          iconData: Icons.home,
+          title: "Home",
+          nbNotifications: 65,
+          onclick: () {
+            final FancyBottomNavigationState fState =
+                bottomNavigationKey.currentState;
+            fState.setPage(2);
+          }),
+      TabData(
+          iconData: Icons.search,
+          title: "Search",
+          nbNotifications: 0,
+          onclick: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => SecondPage()))),
+      TabData(iconData: Icons.shopping_cart, title: "Basket", nbNotifications: 1)
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Fancy Bottom Navigation"),
@@ -40,26 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: FancyBottomNavigation(
-        tabs: [
-          TabData(
-              iconData: Icons.home,
-              title: "Home",
-              onclick: () {
-                final FancyBottomNavigationState fState =
-                    bottomNavigationKey.currentState;
-                fState.setPage(2);
-              }),
-          TabData(
-              iconData: Icons.search,
-              title: "Search",
-              onclick: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => SecondPage()))),
-          TabData(iconData: Icons.shopping_cart, title: "Basket")
-        ],
+        tabs: tabs,
         initialSelection: 1,
         key: bottomNavigationKey,
         onTabChangedListener: (position) {
+          tabs[position].nbNotifications = 0;
           setState(() {
+
             currentPage = position;
           });
         },

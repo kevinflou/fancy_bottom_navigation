@@ -9,17 +9,7 @@ const double ALPHA_OFF = 0;
 const double ALPHA_ON = 1;
 const int ANIM_DURATION = 300;
 
-class TabItem extends StatelessWidget {
-  TabItem(
-      {@required this.uniqueKey,
-        @required this.selected,
-        @required this.iconData,
-        @required this.title,
-        @required this.callbackFunction,
-        @required this.textColor,
-        @required this.iconColor,
-        @required this.nbNotifications});
-
+class TabItem extends StatefulWidget {
   final UniqueKey uniqueKey;
   final String title;
   final IconData iconData;
@@ -28,6 +18,23 @@ class TabItem extends StatelessWidget {
   final Color textColor;
   final Color iconColor;
   int nbNotifications;
+
+  TabItem({@required this.uniqueKey,
+    @required this.selected,
+    @required this.iconData,
+    @required this.title,
+    @required this.callbackFunction,
+    @required this.textColor,
+    @required this.iconColor,
+    @required this.nbNotifications}) : super(key: uniqueKey);
+
+  @override
+  _TabItemState createState() => _TabItemState();
+}
+
+class _TabItemState extends State<TabItem> {
+
+
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
@@ -44,15 +51,15 @@ class TabItem extends StatelessWidget {
             width: double.infinity,
             child: AnimatedAlign(
                 duration: Duration(milliseconds: ANIM_DURATION),
-                alignment: Alignment(0, (selected) ? TEXT_ON : TEXT_OFF),
+                alignment: Alignment(0, (widget.selected) ? TEXT_ON : TEXT_OFF),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    title,
+                    widget.title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                        fontWeight: FontWeight.w600, color: textColor),
+                        fontWeight: FontWeight.w600, color: widget.textColor),
                   ),
                 )),
           ),
@@ -62,10 +69,10 @@ class TabItem extends StatelessWidget {
             child: AnimatedAlign(
               duration: Duration(milliseconds: ANIM_DURATION),
               curve: Curves.easeIn,
-              alignment: Alignment(0, (selected) ? ICON_OFF : ICON_ON),
+              alignment: Alignment(0, (widget.selected) ? ICON_OFF : ICON_ON),
               child: AnimatedOpacity(
                 duration: Duration(milliseconds: ANIM_DURATION),
-                opacity: (selected) ? ALPHA_OFF : ALPHA_ON,
+                opacity: (widget.selected) ? ALPHA_OFF : ALPHA_ON,
                 child: _formatBadgeButton()
               ),
             ),
@@ -76,21 +83,24 @@ class TabItem extends StatelessWidget {
   }
 
   dynamic _formatBadgeButton(){
-    if(this.nbNotifications > 0) {
+    if(widget.nbNotifications > 0) {
       return Badge(badgeContent: Text(
-          this.nbNotifications != null ? this.nbNotifications.toString() : ""),
+          widget.nbNotifications != null ? widget.nbNotifications.toString() : ""),
           child: IconButton(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             padding: EdgeInsets.all(0),
             alignment: Alignment(0, 0),
             icon: Icon(
-              iconData,
-              color: iconColor,
+              widget.iconData,
+              color: widget.iconColor,
             ),
             onPressed: () {
-              this.nbNotifications = 0;
-              callbackFunction(uniqueKey);
+              setState(() {
+                widget.nbNotifications = 0;
+              });
+
+              widget.callbackFunction(widget.uniqueKey);
             },)
       );
     }else{
@@ -100,11 +110,11 @@ class TabItem extends StatelessWidget {
             padding: EdgeInsets.all(0),
             alignment: Alignment(0, 0),
             icon: Icon(
-              iconData,
-              color: iconColor,
+              widget.iconData,
+              color: widget.iconColor,
             ),
             onPressed: () {
-              callbackFunction(uniqueKey);
+              widget.callbackFunction(widget.uniqueKey);
             },);
     }
   }

@@ -41,6 +41,11 @@ class _TabItemState extends State<TabItem> {
   final double iconAlpha = ALPHA_ON;
 
   @override
+  void initState(){
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Stack(
@@ -117,6 +122,9 @@ class _TabItemState extends State<TabItem> {
               color: widget.iconColor,
             ),
             onPressed: () {
+              setState(() => {
+
+              });
               widget.callbackFunction(widget.uniqueKey);
             },);
     }

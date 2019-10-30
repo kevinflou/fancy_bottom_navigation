@@ -96,9 +96,9 @@ class _TabItemState extends State<TabItem> {
               color: widget.iconColor,
             ),
             onPressed: () {
-              setState(() {
+              //setState(() {
                 widget.nbNotifications = 0;
-              });
+              //});
 
               widget.callbackFunction(widget.uniqueKey);
             },)

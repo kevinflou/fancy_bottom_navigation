@@ -80,11 +80,12 @@ class TabItem extends StatelessWidget {
     if(this.nbNotifications > 0) {
       return Badge(badgeContent: Text(
           this.nbNotifications != null ? this.nbNotifications.toString() : ""),
+          position: BadgePosition.topRight(top:-8,right:-8);
           child: IconButton(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             padding: EdgeInsets.all(0),
-            alignment: Alignment(10, 10),
+            alignment: Alignment(0, 0),
             icon: Icon(
               iconData,
               color: iconColor,

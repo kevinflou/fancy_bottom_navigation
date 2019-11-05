@@ -84,7 +84,7 @@ class TabItem extends StatelessWidget {
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             padding: EdgeInsets.all(0),
-            alignment: Alignment(0, 0),
+            alignment: Alignment(10, 10),
             icon: Icon(
               iconData,
               color: iconColor,

@@ -79,7 +79,7 @@ class TabItem extends StatelessWidget {
     print("NOTIFICATIONS : " + this.nbNotifications.toString());
     if(this.nbNotifications > 0) {
       return Badge(badgeContent: Text(
-          this.nbNotifications != null ? this.nbNotifications.toString() : ""),
+          this.nbNotifications != null ? this.nbNotifications.toString() : "", style: TextStyle(color:Colors.white),),
           position: BadgePosition.topRight(top:0,right:0),
           child: IconButton(
             highlightColor: Colors.transparent,

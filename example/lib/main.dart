@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
       TabData(
           iconData: Icons.search,
           title: "Search",
-          nbNotifications: 0,
+          nbNotifications: 9,
           onclick: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => SecondPage()))),
       TabData(iconData: Icons.shopping_cart, title: "Basket", nbNotifications: 1)
